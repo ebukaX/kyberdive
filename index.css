@@ -1,0 +1,228 @@
+/* =====================================================
+   KYBERDIVE — HOMEPAGE STYLES (MVP)
+   File: index.css
+   ===================================================== */
+
+/* ---------- RESET & BASE ---------- */
+body.dark {
+  background-color: #0a0a0f;
+  color: #c0c0c0;
+  font-family: 'Fira Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: #00f0ff;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ff00ff;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background-color: rgba(10, 10, 15, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #00f0ff;
+}
+
+.main-nav a {
+  margin-left: 2rem;
+  font-weight: 500;
+}
+
+.main-nav a.active {
+  color: #ff00ff;
+  text-shadow: 0 0 6px #ff00ff;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem 3rem 4rem 3rem;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.05), #0a0a0f);
+}
+
+.hero-content {
+  max-width: 50%;
+}
+
+.hero-content h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #c0c0c0;
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 0.4rem;
+  background: #0066ff;
+  color: #0a0a0f;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 12px #00f0ff;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: #00f0ff;
+  color: #0a0a0f;
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #ff00ff;
+}
+
+/* Hero visual placeholder */
+#heroCanvas {
+  width: 45%;
+  height: 300px;
+  background-color: rgba(0, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0,255,255,0.2);
+}
+
+/* ---------- TRANSLATION SECTION ---------- */
+.translation-section {
+  padding: 4rem 3rem;
+}
+
+.translation-section h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #00f0ff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.translation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.translation-card {
+  background: rgba(0, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,255,255,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.translation-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 16px #00f0ff, 0 0 32px #ff00ff;
+}
+
+.translation-card h3 {
+  color: #00f0ff;
+  margin-bottom: 0.5rem;
+}
+
+.translation-card p {
+  color: #c0c0c0;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.mini-chart {
+  width: 100%;
+  height: 100px;
+}
+
+/* ---------- WHY SECTION ---------- */
+.why-section {
+  padding: 4rem 3rem;
+}
+
+.why-section h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #00f0ff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.why-card {
+  background: rgba(255, 0, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,0,255,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 14px #00f0ff, 0 0 28px #ff00ff;
+}
+
+.why-card h3 {
+  color: #ff00ff;
+  margin-bottom: 0.5rem;
+}
+
+.why-card p {
+  color: #c0c0c0;
+  font-size: 0.95rem;
+}
+
+/* ---------- CTA SECTION ---------- */
+.cta-section {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.cta-btn.large {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #ff00ff;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: rgba(10,10,15,0.9);
+  border-top: 1px solid rgba(0,255,255,0.2);
+  color: #c0c0c0;
+  font-size: 0.9rem;
+}
