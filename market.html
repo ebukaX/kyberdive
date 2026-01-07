@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyberdive – Global Market Core</title>
+  <meta name="description" content="Kyberdive Global Market Core: Explore crypto sectors, momentum, and AI insights.">
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/market.css">
+</head>
+<body class="dark">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo">KYBERDIVE</div>
+    <nav class="main-nav">
+      <a href="/" >Home</a>
+      <a href="/market.html" class="active">Market</a>
+      <a href="/compare.html">Compare</a>
+      <a href="/insights.html">Insights</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- GLOBAL MARKET CORE HERO -->
+  <section class="market-hero">
+    <h1>Global Market Core</h1>
+    <p>Analyze all sectors at a glance. Momentum, dominance, and narrative strength at your fingertips.</p>
+  </section>
+
+  <!-- SECTOR GRID -->
+  <section class="sector-grid-section">
+    <div class="sector-grid">
+      <!-- Each sector card populated dynamically by JS -->
+      <div class="sector-card" id="sector-energy">
+        <h3>Energy</h3>
+        <canvas class="sector-mini-chart" id="energyMiniChart"></canvas>
+        <div class="sector-metrics">
+          <span>Dominance: <span class="dominance">18.4%</span></span>
+          <span>Momentum: <span class="momentum">0.71</span></span>
+          <span>Volatility: <span class="volatility">0.62</span></span>
+        </div>
+        <button class="cta-btn small" onclick="goToSector('energy')">View Details</button>
+      </div>
+
+      <div class="sector-card" id="sector-ai">
+        <h3>AI / Cloud</h3>
+        <canvas class="sector-mini-chart" id="aiMiniChart"></canvas>
+        <div class="sector-metrics">
+          <span>Dominance: <span class="dominance">22.1%</span></span>
+          <span>Momentum: <span class="momentum">0.83</span></span>
+          <span>Volatility: <span class="volatility">0.78</span></span>
+        </div>
+        <button class="cta-btn small" onclick="goToSector('ai')">View Details</button>
+      </div>
+
+      <div class="sector-card" id="sector-defense">
+        <h3>Defense</h3>
+        <canvas class="sector-mini-chart" id="defenseMiniChart"></canvas>
+        <div class="sector-metrics">
+          <span>Dominance: <span class="dominance">9.7%</span></span>
+          <span>Momentum: <span class="momentum">0.46</span></span>
+          <span>Volatility: <span class="volatility">0.54</span></span>
+        </div>
+        <button class="cta-btn small" onclick="goToSector('defense')">View Details</button>
+      </div>
+
+      <!-- Add more sectors as needed -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>© Kyberdive — Market intelligence through sectors.</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="data.mock.js"></script>
+  <script src="charts.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
