@@ -1,151 +1,61 @@
 /* =====================================================
-   KYBERDIVE – CHART & VISUALIZATION ENGINE (MVP)
+   KYBERDIVE — MINI CHARTS SCRIPT (MVP)
    File: charts.js
+   Requires: Chart.js (include via CDN or npm)
    ===================================================== */
 
-/*
-  DESIGN PRINCIPLES:
-  - Visuals support narrative, not speculation
-  - No decorative charts
-  - Every graph answers one question
-*/
-
-/* ---------- CHART REGISTRY ---------- */
-
-const Charts = {
-  dominance: null,
-  momentum: null,
-  volatility: null
-};
-
-/* ---------- GENERIC HUD STYLE ---------- */
-
-const hudStyle = {
-  borderColor: "rgba(0, 255, 255, 0.6)",
-  backgroundColor: "rgba(0, 255, 255, 0.08)",
-  textColor: "#9ffcff",
-  gridColor: "rgba(255,255,255,0.05)"
-};
-
-/* ---------- INITIALIZE ALL CHARTS ---------- */
-
-function initCharts() {
-  createDominanceChart();
-  createMomentumChart();
-  createVolatilityChart();
-}
-
-/* ---------- DOM HELPERS ---------- */
-
-function ctx(id) {
-  return document.getElementById(id).getContext("2d");
-}
-
-/* ---------- DOMINANCE CHART ---------- */
-/* Question answered:
-   "How much attention this sector commands in the market"
-*/
-
-function createDominanceChart() {
-  Charts.dominance = new Chart(ctx("dominanceChart"), {
-    type: "radar",
+/* ---------- Helper Function ---------- */
+function createMiniChart(canvasId, data, color) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
     data: {
-      labels: ["Energy", "AI", "Defense", "Health", "Cyber"],
+      labels: data.labels, // e.g., ['1h','2h','3h',...]
       datasets: [{
-        label: "Sector Dominance",
-        data: [18.4, 22.1, 9.7, 14.2, 11.9],
-        borderColor: hudStyle.borderColor,
-        backgroundColor: hudStyle.backgroundColor,
-        pointBackgroundColor: hudStyle.textColor
-      }]
-    },
-    options: hudOptions()
-  });
-}
-
-/* ---------- MOMENTUM CHART ---------- */
-/* Question answered:
-   "Is attention accelerating or decaying?"
-*/
-
-function createMomentumChart() {
-  Charts.momentum = new Chart(ctx("momentumChart"), {
-    type: "line",
-    data: {
-      labels: ["T-5", "T-4", "T-3", "T-2", "Now"],
-      datasets: [{
-        label: "Momentum",
-        data: [0.42, 0.51, 0.63, 0.71, 0.83],
-        borderColor: hudStyle.borderColor,
-        tension: 0.35,
+        label: '',
+        data: data.values,
+        borderColor: color,
+        backgroundColor: 'rgba(0,255,255,0.1)',
         fill: true,
-        backgroundColor: hudStyle.backgroundColor
+        tension: 0.3, // smooth curves
+        pointRadius: 0 // no points for mini chart
       }]
     },
-    options: hudOptions()
-  });
-}
-
-/* ---------- VOLATILITY CHART ---------- */
-/* Question answered:
-   "How unstable is the narrative?"
-*/
-
-function createVolatilityChart() {
-  Charts.volatility = new Chart(ctx("volatilityChart"), {
-    type: "bar",
-    data: {
-      labels: ["Energy", "AI", "Defense"],
-      datasets: [{
-        label: "Volatility Index",
-        data: [0.62, 0.78, 0.54],
-        backgroundColor: hudStyle.backgroundColor,
-        borderColor: hudStyle.borderColor,
-        borderWidth: 1
-      }]
-    },
-    options: hudOptions()
-  });
-}
-
-/* ---------- HUD OPTIONS ---------- */
-
-function hudOptions() {
-  return {
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: hudStyle.textColor
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          titleColor: '#00f0ff',
+          bodyColor: '#c0c0c0',
+          xPadding: 8,
+          yPadding: 6,
+          displayColors: false
         }
-      }
-    },
-    scales: {
-      r: {
-        grid: { color: hudStyle.gridColor },
-        angleLines: { color: hudStyle.gridColor },
-        pointLabels: { color: hudStyle.textColor },
-        ticks: { display: false }
       },
-      x: {
-        grid: { color: hudStyle.gridColor },
-        ticks: { color: hudStyle.textColor }
+      scales: {
+        x: { display: false },
+        y: { display: false }
       },
-      y: {
-        grid: { color: hudStyle.gridColor },
-        ticks: { color: hudStyle.textColor }
+      elements: {
+        line: { borderWidth: 2 }
       }
     }
-  };
+  });
 }
 
-/* ---------- UPDATE HOOK (CALLED FROM main.js LATER) ---------- */
-
-function updateChartsForSector(sectorKey, metrics) {
-  // MVP placeholder: real-time updates come later
-  console.info("Updating charts for:", sectorKey, metrics);
+/* ---------- Create Mini Charts for Sectors ---------- */
+function initMiniCharts() {
+  createMiniChart('energyMiniChart', dataMock.energy, '#00ff88');
+  createMiniChart('aiMiniChart', dataMock.ai, '#ff00ff');
+  createMiniChart('defenseMiniChart', dataMock.defense, '#ff5500');
+  // Add more sectors as needed
 }
 
-/* ---------- INIT ---------- */
-
-document.addEventListener("DOMContentLoaded", initCharts);
+/* ---------- Initialize Charts on Page Load ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  initMiniCharts();
+});
