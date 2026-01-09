@@ -74,5 +74,6 @@ sectorNodes.forEach(node => {
 /* ---------- INIT ---------- */
 
 document.addEventListener("DOMContentLoaded", () => {
+  AppState.sectors = window.SectorMap;
   setActiveSector(AppState.activeSector);
 });
