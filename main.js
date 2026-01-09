@@ -52,13 +52,16 @@ function updateInsight() {
   if (!AppState.insightsEnabled) return;
 
   const sector = AppState.sectors[AppState.activeSector];
+  const insightText = generateSectorInsight(sector);
 
   insightPanel.innerHTML = `
     <h3>${sector.name} Sector Insight</h3>
-    <p><strong>Real-world signal:</strong> ${sector.realWorldSignal}</p>
-    <p><strong>Crypto translation:</strong> ${sector.cryptoNarrative}</p>
-    <p class="sentiment ${sector.sentiment}">
-      Market bias: ${sector.sentiment.toUpperCase()}
+    <p class="insight-text">${insightText}</p>
+    <p class="context">
+      <strong>Real-world:</strong> ${sector.realWorldSignal}
+    </p>
+    <p class="context">
+      <strong>Crypto translation:</strong> ${sector.cryptoNarrative}
     </p>
   `;
 }
