@@ -1,15 +1,30 @@
-// data.mock.js
-// Kyberdive MVP — Mock World-to-Market Signal Layer
+/* =====================================================
+   KYBERDIVE — MOCK WORLD → MARKET SIGNAL LAYER (MVP)
+   File: data.mock.js
+   ===================================================== */
+
+/*
+  This file represents Kyberdive’s narrative intelligence layer.
+  It models how real-world forces translate into sector-level
+  crypto market behavior.
+*/
+
+/* ---------- SECTOR DATA (ARRAY FORM) ---------- */
+/* Used for charts, loops, global overviews */
 
 const KYBERDIVE_SECTORS = [
   {
     id: "energy",
     name: "Energy",
     narrative: "Global supply tensions and infrastructure stress reshape energy markets.",
+    realWorldSignal: "Oil supply constraints and grid instability",
+    cryptoNarrative: "Energy-linked infrastructure and compute demand increasing",
+    sentimentLabel: "bullish",
     metrics: {
-      sentiment: 0.72,          // 0 → 1 (fear → optimism)
-      volatility: 0.58,         // market instability
-      momentum: 0.65            // trend strength
+      dominance: 18.4,
+      sentiment: 0.72,     // 0 → 1 (fear → optimism)
+      volatility: 0.58,    // instability level
+      momentum: 0.65       // trend strength
     },
     trend: [45, 48, 52, 50, 55, 60, 63],
     signals: [
@@ -20,10 +35,14 @@ const KYBERDIVE_SECTORS = [
   },
 
   {
-    id: "technology",
-    name: "Technology",
+    id: "ai",
+    name: "AI / Cloud",
     narrative: "AI adoption and infrastructure scaling drive asymmetric growth.",
+    realWorldSignal: "AI regulation shifts and compute demand spike",
+    cryptoNarrative: "Decentralized compute and data layers gaining relevance",
+    sentimentLabel: "bullish",
     metrics: {
+      dominance: 22.1,
       sentiment: 0.81,
       volatility: 0.42,
       momentum: 0.78
@@ -40,7 +59,11 @@ const KYBERDIVE_SECTORS = [
     id: "finance",
     name: "Finance",
     narrative: "Liquidity cycles tighten while digital assets gain narrative relevance.",
+    realWorldSignal: "Interest rate uncertainty and banking pressure",
+    cryptoNarrative: "Crypto assets repositioned as alternative liquidity rails",
+    sentimentLabel: "neutral",
     metrics: {
+      dominance: 14.6,
       sentiment: 0.54,
       volatility: 0.67,
       momentum: 0.49
@@ -57,7 +80,11 @@ const KYBERDIVE_SECTORS = [
     id: "consumer",
     name: "Consumer",
     narrative: "Everyday cost pressures reshape spending behavior globally.",
+    realWorldSignal: "Inflation persistence and wage pressure",
+    cryptoNarrative: "Consumer-facing crypto utilities under stress",
+    sentimentLabel: "bearish",
     metrics: {
+      dominance: 9.1,
       sentiment: 0.47,
       volatility: 0.51,
       momentum: 0.44
@@ -71,11 +98,16 @@ const KYBERDIVE_SECTORS = [
   }
 ];
 
-// Utility accessors (used across the app)
-function getAllSectors() {
-  return KYBERDIVE_SECTORS;
-}
+/* ---------- NORMALIZED ACCESS MAP ---------- */
+/* Used by controllers and interaction logic */
 
-function getSectorById(id) {
-  return KYBERDIVE_SECTORS.find(sector => sector.id === id);
-}
+const SectorMap = {};
+KYBERDIVE_SECTORS.forEach(sector => {
+  SectorMap[sector.id] = sector;
+});
+
+/* ---------- GLOBAL EXPOSURE (MVP MODE) ---------- */
+/* No bundler yet — explicit globals */
+
+window.KYBERDIVE_SECTORS = KYBERDIVE_SECTORS;
+window.SectorMap = SectorMap;
