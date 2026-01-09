@@ -11,44 +11,6 @@ const AppState = {
   insightsEnabled: true
 };
 
-/* ---------- SECTOR DEFINITIONS (MVP DATA MODEL) ---------- */
-/* This is the “real-world → crypto translation layer” seed */
-
-AppState.sectors = {
-  energy: {
-    name: "Energy",
-    realWorldSignal: "Oil prices rising, grid instability",
-    cryptoNarrative: "Energy-linked infrastructure and compute demand increasing",
-    sentiment: "bullish",
-    metrics: {
-      dominance: 18.4,
-      volatility: 0.62,
-      momentum: 0.71
-    }
-  },
-  ai: {
-    name: "AI / Cloud",
-    realWorldSignal: "AI regulation + compute demand spike",
-    cryptoNarrative: "Decentralized compute and data layers gaining relevance",
-    sentiment: "bullish",
-    metrics: {
-      dominance: 22.1,
-      volatility: 0.78,
-      momentum: 0.83
-    }
-  },
-  defense: {
-    name: "Defense",
-    realWorldSignal: "Geopolitical tension escalation",
-    cryptoNarrative: "Secure communication and privacy tech under focus",
-    sentiment: "neutral",
-    metrics: {
-      dominance: 9.7,
-      volatility: 0.54,
-      momentum: 0.46
-    }
-  }
-};
 
 /* ---------- DOM REFERENCES ---------- */
 
