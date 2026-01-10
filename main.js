@@ -7,61 +7,58 @@
 
 const AppState = {
   activeSector: "energy",
-  sectors: {},
+  sectors: [],
   insightsEnabled: true
 };
-
 
 /* ---------- DOM REFERENCES ---------- */
 
 const sectorNodes = document.querySelectorAll(".sector-node");
 const insightPanel = document.getElementById("ai-insight");
-const metricDominance = document.getElementById("metric-dominance");
+const metricSentiment = document.getElementById("metric-dominance");
 const metricVolatility = document.getElementById("metric-volatility");
 const metricMomentum = document.getElementById("metric-momentum");
 
 /* ---------- CORE FUNCTIONS ---------- */
 
 /* Switch active sector */
-function setActiveSector(sectorKey) {
-  if (!AppState.sectors[sectorKey]) return;
+function setActiveSector(sectorId) {
+  const sector = AppState.sectors.find(s => s.id === sectorId);
+  if (!sector) return;
 
-  AppState.activeSector = sectorKey;
-  updateUI();
-  updateInsight();
+  AppState.activeSector = sectorId;
+  updateUI(sector);
+  updateInsight(sector);
 }
 
 /* Update HUD metrics */
-function updateUI() {
-  const sector = AppState.sectors[AppState.activeSector];
-
-  metricDominance.textContent = sector.metrics.dominance + "%";
-  metricVolatility.textContent = sector.metrics.volatility;
-  metricMomentum.textContent = sector.metrics.momentum;
+function updateUI(sector) {
+  metricSentiment.textContent = Math.round(sector.metrics.sentiment * 100) + "%";
+  metricVolatility.textContent = sector.metrics.volatility.toFixed(2);
+  metricMomentum.textContent = sector.metrics.momentum.toFixed(2);
 
   sectorNodes.forEach(node => {
     node.classList.toggle(
       "active",
-      node.dataset.sector === AppState.activeSector
+      node.dataset.sector === sector.id
     );
   });
 }
 
 /* Update AI Insight Panel */
-function updateInsight() {
+function updateInsight(sector) {
   if (!AppState.insightsEnabled) return;
 
-  const sector = AppState.sectors[AppState.activeSector];
   const insightText = generateSectorInsight(sector);
 
   insightPanel.innerHTML = `
     <h3>${sector.name} Sector Insight</h3>
     <p class="insight-text">${insightText}</p>
     <p class="context">
-      <strong>Real-world:</strong> ${sector.realWorldSignal}
+      <strong>Market narrative:</strong> ${sector.narrative}
     </p>
     <p class="context">
-      <strong>Crypto translation:</strong> ${sector.cryptoNarrative}
+      <strong>Active signals:</strong> ${sector.signals.join(", ")}
     </p>
   `;
 }
@@ -77,6 +74,6 @@ sectorNodes.forEach(node => {
 /* ---------- INIT ---------- */
 
 document.addEventListener("DOMContentLoaded", () => {
-  AppState.sectors = window.SectorMap;
+  AppState.sectors = getAllSectors();
   setActiveSector(AppState.activeSector);
 });
