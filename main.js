@@ -53,15 +53,21 @@ const insightText = generateSectorInsight(sector);
 const regime = classifyMarketRegime(sector.metrics);
 
   insightPanel.innerHTML = `
-    <h3>${sector.name} Sector Insight</h3>
-    <p class="insight-text">${insightText}</p>
-    <p class="context">
-      <strong>Market narrative:</strong> ${sector.narrative}
-    </p>
-    <p class="context">
-      <strong>Active signals:</strong> ${sector.signals.join(", ")}
-    </p>
-  `;
+  <h3>${sector.name} Sector Insight</h3>
+  <p class="regime">
+    <strong>Market regime:</strong> ${regime.label}
+  </p>
+  <p class="insight-text">${insightText}</p>
+  <p class="context">
+    <strong>Regime context:</strong> ${regime.description}
+  </p>
+  <p class="context">
+    <strong>Market narrative:</strong> ${sector.narrative}
+  </p>
+  <p class="context">
+    <strong>Active signals:</strong> ${sector.signals.join(", ")}
+  </p>
+`;
 }
 
 /* ---------- EVENT BINDINGS ---------- */
