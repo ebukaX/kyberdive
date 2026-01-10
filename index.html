@@ -1,100 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kyberdive – Sectors Are the Story</title>
-  <meta name="description" content="Kyberdive translates real-world forces into crypto market narratives. Explore sectors and insights.">
-  <link rel="stylesheet" href="styles/global.css">
-  <link rel="stylesheet" href="styles/index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyberdive — Sectors Are the Story</title>
+
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/index.css" />
 </head>
 <body class="dark">
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="logo">KYBERDIVE</div>
-    <nav class="main-nav">
-      <a href="/" class="active">Home</a>
-      <a href="/market.html">Market</a>
-      <a href="/compare.html">Compare</a>
-      <a href="/insights.html">Insights</a>
-      <a href="/about.html">About</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <div class="logo">KYBERDIVE</div>
+  <nav class="main-nav">
+    <a href="/" class="active">Home</a>
+    <a href="market.html">Market</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
 
-  <!-- HERO / NARRATIVE -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Sectors Are the Story</h1>
-      <p>Discover how everyday forces shape crypto markets. See the narratives that move sectors and understand the story behind the numbers.</p>
-      <a href="/market.html" class="cta-btn">Explore Global Market Core</a>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Sectors Are the Story</h1>
+    <p>
+      Kyberdive translates real-world forces into crypto market narratives.
+      Understand markets through sectors, not noise.
+    </p>
+    <a href="market.html" class="cta-btn">Enter Global Market Core</a>
+  </div>
+</section>
+
+<section class="translation-section">
+  <h2>Everyday Life → Market Impact</h2>
+
+  <div class="translation-grid">
+    <div class="translation-card">
+      <h3>Energy</h3>
+      <p>Oil prices, grid instability, infrastructure stress</p>
+      <canvas id="energyChart"></canvas>
     </div>
-    <div class="hero-visual">
-      <!-- Placeholder for animated HUD background (e.g., particles, grid, glow) -->
-      <canvas id="heroCanvas"></canvas>
+
+    <div class="translation-card">
+      <h3>AI / Cloud</h3>
+      <p>Compute demand, regulation, data centers</p>
+      <canvas id="aiChart"></canvas>
     </div>
-  </section>
 
-  <!-- REAL-WORLD → CRYPTO TRANSLATION -->
-  <section class="translation-section">
-    <h2>Everyday Events Drive Sectors</h2>
-    <div class="translation-grid">
-      <div class="translation-card">
-        <h3>Energy</h3>
-        <p>Oil price changes, grid instability, energy costs</p>
-        <canvas id="energyChart" class="mini-chart"></canvas>
-      </div>
-      <div class="translation-card">
-        <h3>AI / Cloud</h3>
-        <p>AI compute demand, regulation, data center growth</p>
-        <canvas id="aiChart" class="mini-chart"></canvas>
-      </div>
-      <div class="translation-card">
-        <h3>Defense</h3>
-        <p>Geopolitical tension, cyber defense, surveillance</p>
-        <canvas id="defenseChart" class="mini-chart"></canvas>
-      </div>
+    <div class="translation-card">
+      <h3>Defense</h3>
+      <p>Geopolitics, surveillance, cyber security</p>
+      <canvas id="defenseChart"></canvas>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WHY KYBERDIVE -->
-  <section class="why-section">
-    <h2>Why Kyberdive Exists</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>Clarity</h3>
-        <p>We remove noise and show crypto through sector-level narratives.</p>
-      </div>
-      <div class="why-card">
-        <h3>Control</h3>
-        <p>Understand market dynamics with real-world context.</p>
-      </div>
-      <div class="why-card">
-        <h3>Credibility</h3>
-        <p>AI insights are constrained by transparent rules and structured data.</p>
-      </div>
-    </div>
-  </section>
+<footer class="site-footer">
+  <p>© Kyberdive — Market intelligence through sectors.</p>
+</footer>
 
-  <!-- CALL TO ACTION -->
-  <section class="cta-section">
-    <a href="/market.html" class="cta-btn large">Enter the Global Market Core</a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p>© Kyberdive — Market intelligence through sectors.</p>
-  </footer>
-
- <!-- JS -->
+<!-- JS (NO main.js here) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script src="assets/js/data.mock.js"></script>
-<script src="assets/js/insights.js"></script>
-<script src="assets/js/regime.js"></script>
 <script src="assets/js/charts.js"></script>
-<script src="assets/js/main.js"></script>
-
 
 </body>
 </html>
