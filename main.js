@@ -49,7 +49,8 @@ function updateUI(sector) {
 function updateInsight(sector) {
   if (!AppState.insightsEnabled) return;
 
-  const insightText = generateSectorInsight(sector);
+const insightText = generateSectorInsight(sector);
+const regime = classifyMarketRegime(sector.metrics);
 
   insightPanel.innerHTML = `
     <h3>${sector.name} Sector Insight</h3>
