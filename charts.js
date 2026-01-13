@@ -1,61 +1,93 @@
 /* =====================================================
-   KYBERDIVE — MINI CHARTS SCRIPT (MVP)
+   KYBERDIVE – CHART ENGINE (MVP)
    File: charts.js
-   Requires: Chart.js (include via CDN or npm)
-   ===================================================== */
+===================================================== */
 
-/* ---------- Helper Function ---------- */
-function createMiniChart(canvasId, data, color) {
-  const ctx = document.getElementById(canvasId).getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
+let dominanceChart = null;
+let momentumChart = null;
+
+/* ---------- CREATE CHARTS ---------- */
+
+function initCharts(sector) {
+  const dominanceCtx = document
+    .getElementById("dominanceChart")
+    ?.getContext("2d");
+
+  const momentumCtx = document
+    .getElementById("momentumChart")
+    ?.getContext("2d");
+
+  if (!dominanceCtx || !momentumCtx) {
+    console.warn("Chart canvas not found");
+    return;
+  }
+
+  dominanceChart = new Chart(dominanceCtx, {
+    type: "doughnut",
     data: {
-      labels: data.labels, // e.g., ['1h','2h','3h',...]
+      labels: ["Sector", "Market"],
       datasets: [{
-        label: '',
-        data: data.values,
-        borderColor: color,
-        backgroundColor: 'rgba(0,255,255,0.1)',
-        fill: true,
-        tension: 0.3, // smooth curves
-        pointRadius: 0 // no points for mini chart
+        data: [
+          sector.metrics.dominance,
+          100 - sector.metrics.dominance
+        ],
+        backgroundColor: ["#00f0ff", "#1b1b1b"],
+        borderWidth: 0
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      cutout: "70%",
       plugins: {
-        legend: { display: false },
-        tooltip: {
-          enabled: true,
-          backgroundColor: 'rgba(0,0,0,0.8)',
-          titleColor: '#00f0ff',
-          bodyColor: '#c0c0c0',
-          xPadding: 8,
-          yPadding: 6,
-          displayColors: false
-        }
+        legend: { display: false }
+      }
+    }
+  });
+
+  momentumChart = new Chart(momentumCtx, {
+    type: "line",
+    data: {
+      labels: sector.trend.labels,
+      datasets: [{
+        label: "Momentum",
+        data: sector.trend.values,
+        borderWidth: 2,
+        tension: 0.4,
+        fill: false
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false }
       },
       scales: {
         x: { display: false },
         y: { display: false }
-      },
-      elements: {
-        line: { borderWidth: 2 }
       }
     }
   });
 }
 
-/* ---------- Create Mini Charts for Sectors ---------- */
-function initMiniCharts() {
-  createMiniChart('energyMiniChart', dataMock.energy, '#00ff88');
-  createMiniChart('aiMiniChart', dataMock.ai, '#ff00ff');
-  createMiniChart('defenseMiniChart', dataMock.defense, '#ff5500');
-  // Add more sectors as needed
-}
+/* ---------- UPDATE CHARTS ---------- */
 
-/* ---------- Initialize Charts on Page Load ---------- */
-document.addEventListener('DOMContentLoaded', () => {
-  initMiniCharts();
-});
+function updateSectorCharts(sectorKey) {
+  const sector = window.SectorMap?.[sectorKey];
+  if (!sector) return;
+
+  // First load
+  if (!dominanceChart || !momentumChart) {
+    initCharts(sector);
+    return;
+  }
+
+  // Update dominance
+  dominanceChart.data.datasets[0].data = [
+    sector.metrics.dominance,
+    100 - sector.metrics.dominance
+  ];
+  dominanceChart.update();
+
+  // Update momentum
+  momentumChart.data.labels = sector.trend.labels;
+  momentumChart.data.datasets[0].data = sector.trend.values;
+  momentumChart.update();
+}
