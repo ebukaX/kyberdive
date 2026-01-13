@@ -31,13 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- CORE FUNCTIONS ---------- */
 
-  function setActiveSector(sectorKey) {
-    if (!AppState.sectors[sectorKey]) return;
+ function setActiveSector(sectorKey) {
+  if (!AppState.sectors[sectorKey]) return;
 
-    AppState.activeSector = sectorKey;
-    updateUI();
-    updateInsight();
-  }
+  AppState.activeSector = sectorKey;
+  updateUI();
+  updateInsight();
+
+  // 🔗 Notify charts
+  updateSectorCharts(sectorKey);
+}
 
   function updateUI() {
     const sector = AppState.sectors[AppState.activeSector];
