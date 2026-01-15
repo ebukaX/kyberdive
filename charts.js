@@ -1,61 +1,30 @@
 /* =====================================================
-   KYBERDIVE – CHART ENGINE (MVP)
+   KYBERDIVE — CHART ENGINE (MVP)
    File: charts.js
-===================================================== */
+   ===================================================== */
 
-let dominanceChart = null;
-let momentumChart = null;
+let dominanceChart;
+let momentumChart;
 
-/* ---------- CREATE CHARTS ---------- */
+/* ---------- CHART CONFIG HELPERS ---------- */
 
-function initCharts(sector) {
-  const dominanceCtx = document
-    .getElementById("dominanceChart")
-    ?.getContext("2d");
-
-  const momentumCtx = document
-    .getElementById("momentumChart")
-    ?.getContext("2d");
-
-  if (!dominanceCtx || !momentumCtx) {
-    console.warn("Chart canvas not found");
-    return;
-  }
-
-  dominanceChart = new Chart(dominanceCtx, {
-    type: "doughnut",
-    data: {
-      labels: ["Sector", "Market"],
-      datasets: [{
-        data: [
-          sector.metrics.dominance,
-          100 - sector.metrics.dominance
-        ],
-        backgroundColor: ["#00f0ff", "#1b1b1b"],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      cutout: "70%",
-      plugins: {
-        legend: { display: false }
-      }
-    }
-  });
-
-  momentumChart = new Chart(momentumCtx, {
+function baseChartConfig(label, data) {
+  return {
     type: "line",
     data: {
-      labels: sector.trend.labels,
-      datasets: [{
-        label: "Momentum",
-        data: sector.trend.values,
-        borderWidth: 2,
-        tension: 0.4,
-        fill: false
-      }]
+      labels: ["T-6", "T-5", "T-4", "T-3", "T-2", "T-1", "Now"],
+      datasets: [
+        {
+          label,
+          data,
+          tension: 0.4,
+          borderWidth: 2,
+          pointRadius: 0
+        }
+      ]
     },
     options: {
+      responsive: true,
       plugins: {
         legend: { display: false }
       },
@@ -64,30 +33,37 @@ function initCharts(sector) {
         y: { display: false }
       }
     }
-  });
+  };
 }
 
-/* ---------- UPDATE CHARTS ---------- */
+/* ---------- INIT ---------- */
 
-function updateSectorCharts(sectorKey) {
-  const sector = window.SectorMap?.[sectorKey];
-  if (!sector) return;
+function initCharts(sector) {
+  const domCtx = document
+    .getElementById("dominanceChart")
+    .getContext("2d");
 
-  // First load
-  if (!dominanceChart || !momentumChart) {
-    initCharts(sector);
-    return;
-  }
+  const momCtx = document
+    .getElementById("momentumChart")
+    .getContext("2d");
 
-  // Update dominance
-  dominanceChart.data.datasets[0].data = [
-    sector.metrics.dominance,
-    100 - sector.metrics.dominance
-  ];
+  dominanceChart = new Chart(
+    domCtx,
+    baseChartConfig("Dominance", sector.trend)
+  );
+
+  momentumChart = new Chart(
+    momCtx,
+    baseChartConfig("Momentum", sector.trend)
+  );
+}
+
+/* ---------- UPDATE ---------- */
+
+function updateCharts(sector) {
+  dominanceChart.data.datasets[0].data = sector.trend;
+  momentumChart.data.datasets[0].data = sector.trend;
+
   dominanceChart.update();
-
-  // Update momentum
-  momentumChart.data.labels = sector.trend.labels;
-  momentumChart.data.datasets[0].data = sector.trend.values;
   momentumChart.update();
 }
