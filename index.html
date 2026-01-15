@@ -2,66 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Kyberdive — Market Intelligence</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kyberdive — Sectors Are the Story</title>
 
-  <link rel="stylesheet" href="styles/global.css" />
-  <link rel="stylesheet" href="styles/index.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="index.css" />
 </head>
-<body class="dark">
 
-<header class="site-header">
-  <div class="logo">KYBERDIVE</div>
-  <nav class="main-nav">
-    <a href="/" class="active">Home</a>
-    <a href="market.html">Market</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
+<body>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Sectors Are the Story</h1>
-    <p>
-      Kyberdive translates real-world forces into crypto market narratives.
-      Understand markets through sectors, not noise.
-    </p>
-    <a href="market.html" class="cta-btn">Enter Global Market Core</a>
-  </div>
-</section>
+  <!-- ===============================
+       HEADER
+  ================================ -->
+  <header class="top-bar">
+    <h1>Kyberdive</h1>
+    <p class="tagline">Crypto as a reflection of real-world forces</p>
+  </header>
 
-<section class="translation-section">
-  <h2>Everyday Life → Market Impact</h2>
+  <!-- ===============================
+       SECTOR SELECTOR
+  ================================ -->
+  <section class="sectors">
+    <div class="sector-node active" data-sector="energy">Energy</div>
+    <div class="sector-node" data-sector="ai">AI</div>
+    <div class="sector-node" data-sector="defense">Defense</div>
+    <div class="sector-node" data-sector="infrastructure">Infrastructure</div>
+  </section>
 
-  <div class="translation-grid">
-    <div class="translation-card">
-      <h3>Energy</h3>
-      <p>Oil prices, grid instability, infrastructure stress</p>
-      <canvas id="energyChart"></canvas>
+  <!-- ===============================
+       METRICS HUD
+  ================================ -->
+  <section class="metrics">
+    <div class="metric">
+      <span class="label">Dominance</span>
+      <span id="metric-dominance">–</span>
+    </div>
+    <div class="metric">
+      <span class="label">Volatility</span>
+      <span id="metric-volatility">–</span>
+    </div>
+    <div class="metric">
+      <span class="label">Momentum</span>
+      <span id="metric-momentum">–</span>
+    </div>
+  </section>
+
+  <!-- ===============================
+       CHARTS
+  ================================ -->
+  <section class="charts">
+    <div class="chart-card">
+      <h4>Sector Dominance</h4>
+      <canvas id="dominanceChart"></canvas>
     </div>
 
-    <div class="translation-card">
-      <h3>AI / Cloud</h3>
-      <p>Compute demand, regulation, data centers</p>
-      <canvas id="aiChart"></canvas>
+    <div class="chart-card">
+      <h4>Momentum Trend</h4>
+      <canvas id="momentumChart"></canvas>
     </div>
+  </section>
 
-    <div class="translation-card">
-      <h3>Defense</h3>
-      <p>Geopolitics, surveillance, cyber security</p>
-      <canvas id="defenseChart"></canvas>
-    </div>
-  </div>
-</section>
+  <!-- ===============================
+       AI INSIGHT PANEL
+  ================================ -->
+  <section class="insight-panel" id="ai-insight">
+    <!-- Injected dynamically by main.js -->
+  </section>
 
-<footer class="site-footer">
-  <p>© Kyberdive — Market intelligence through sectors.</p>
-</footer>
-
-<!-- JS (NO main.js here) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="assets/js/data.mock.js"></script>
-<script src="assets/js/charts.js"></script>
+  <!-- ===============================
+       SCRIPTS (ORDER MATTERS)
+  ================================ -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="data.mock.js"></script>
+  <script src="charts.js"></script>
+  <script src="main.js"></script>
 
 </body>
 </html>
