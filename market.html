@@ -22,40 +22,63 @@
 <main class="market-core">
 
   <!-- SECTOR SELECTOR -->
-  <section class="sector-bar">
+  <section class="sector-selector">
     <button class="sector-node active" data-sector="energy">Energy</button>
-    <button class="sector-node" data-sector="technology">AI / Cloud</button>
+    <button class="sector-node" data-sector="ai">AI / Cloud</button>
     <button class="sector-node" data-sector="defense">Defense</button>
-    <button class="sector-node" data-sector="finance">Finance</button>
   </section>
 
   <!-- METRICS HUD -->
-  <section class="metrics-hud">
+  <section class="metrics">
     <div class="metric">
-      <span class="label">Sentiment</span>
-      <span id="metric-dominance">–</span>
+      <label>Dominance</label>
+      <span id="metric-dominance">—</span>
     </div>
+
     <div class="metric">
-      <span class="label">Volatility</span>
-      <span id="metric-volatility">–</span>
+      <label>Momentum</label>
+      <span id="metric-momentum">—</span>
     </div>
+
     <div class="metric">
-      <span class="label">Momentum</span>
-      <span id="metric-momentum">–</span>
+      <label>Volatility</label>
+      <span id="metric-volatility">—</span>
+    </div>
+  </section>
+
+  <!-- CHARTS -->
+  <section class="charts">
+    <div class="chart-box">
+      <h4>Sector Dominance</h4>
+      <canvas id="dominanceChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h4>Momentum Flow</h4>
+      <canvas id="momentumChart"></canvas>
     </div>
   </section>
 
   <!-- AI INSIGHT PANEL -->
-  <section id="ai-insight" class="insight-panel">
-    Loading insight…
+  <section class="insight-panel">
+    <div id="ai-insight">
+      <h3>Sector Insight</h3>
+      <p>Select a sector to view intelligence.</p>
+    </div>
   </section>
 
 </main>
 
+<footer class="site-footer">
+  <p>© Kyberdive — Market intelligence through sectors.</p>
+</footer>
+
 <!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="assets/js/data.mock.js"></script>
 <script src="assets/js/insights.js"></script>
-<script src="assets/js/regime.js"></script>
+<script src="assets/js/charts.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>
