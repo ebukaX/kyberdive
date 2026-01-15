@@ -3,25 +3,19 @@
    File: main.js
 ===================================================== */
 
-/* ---------- GLOBAL APP STATE ---------- */
-
 const AppState = {
   activeSector: "energy",
   sectors: {},
   insightsEnabled: true
 };
 
-/* ---------- INIT AFTER DOM LOAD ---------- */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM references
   const sectorNodes = document.querySelectorAll(".sector-node");
   const insightPanel = document.getElementById("ai-insight");
   const metricDominance = document.getElementById("metric-dominance");
   const metricVolatility = document.getElementById("metric-volatility");
   const metricMomentum = document.getElementById("metric-momentum");
 
-  // Safety check
   if (!window.SectorMap) {
     console.error("SectorMap not found. Check data.mock.js");
     return;
@@ -31,21 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- CORE FUNCTIONS ---------- */
 
- function setActiveSector(sectorKey) {
-  if (!AppState.sectors[sectorKey]) return;
-
-  AppState.activeSector = sectorKey;
-  updateUI();
-  updateInsight();
-
-  // 🔗 Notify charts
-  updateSectorCharts(sectorKey);
-}
-
-  function updateUI() {
-    const sector = AppState.sectors[AppState.activeSector];
+  function setActiveSector(sectorKey) {
+    const sector = AppState.sectors[sectorKey];
     if (!sector) return;
 
+    AppState.activeSector = sectorKey;
+    updateUI(sector);
+    updateInsight(sector);
+    updateCharts(sector); // ✅ correct function
+  }
+
+  function updateUI(sector) {
     metricDominance.textContent = sector.metrics.dominance + "%";
     metricVolatility.textContent = sector.metrics.volatility;
     metricMomentum.textContent = sector.metrics.momentum;
@@ -58,11 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function updateInsight() {
+  function updateInsight(sector) {
     if (!AppState.insightsEnabled || !insightPanel) return;
-
-    const sector = AppState.sectors[AppState.activeSector];
-    if (!sector) return;
 
     const insightText = generateSectorInsight(sector);
 
@@ -86,7 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ---------- START APP ---------- */
+  /* ---------- INIT ---------- */
 
+  const initialSector = AppState.sectors[AppState.activeSector];
+
+  initCharts(initialSector); // ✅ initialize charts ONCE
   setActiveSector(AppState.activeSector);
 });
