@@ -1,113 +1,76 @@
-/* ---------- SECTOR SELECTOR ---------- */
-.sector-selector {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 3rem 0 2rem;
-}
+/* =====================================================
+   KYBERDIVE – MARKET UI STYLES
+   File: market.css
+===================================================== */
+
+/* ---------- SECTOR NODES ---------- */
 
 .sector-node {
-  background: transparent;
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  color: #c0c0c0;
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
   cursor: pointer;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: all 0.25s ease;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  transition: all 0.2s ease;
 }
 
 .sector-node:hover {
-  color: #00f0ff;
-  border-color: #00f0ff;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+  background: rgba(0,255,255,0.08);
 }
 
 .sector-node.active {
-  color: #0a0a0f;
-  background: #00f0ff;
-  border-color: #00f0ff;
-  box-shadow: 0 0 16px #00f0ff;
+  background: rgba(0,255,255,0.18);
+  box-shadow: 0 0 0 1px rgba(0,255,255,0.6);
 }
 
+/* ---------- METRICS ---------- */
 
-/* ---------- METRICS HUD ---------- */
-.metrics {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-bottom: 2.5rem;
-  font-size: 0.9rem;
+.market-metric {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
-
-.metrics div {
-  color: #c0c0c0;
-}
-
-#metric-dominance {
-  color: #00ff88;
-}
-
-#metric-momentum {
-  color: #ff00ff;
-}
-
-#metric-volatility {
-  color: #ff5500;
-}
-
 
 /* ---------- CHART AREA ---------- */
-canvas#dominanceChart,
-canvas#momentumChart {
-  max-width: 700px;
-  margin: 2rem auto;
-  display: block;
-  background: rgba(0, 255, 255, 0.04);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  border: 1px solid rgba(0, 255, 255, 0.25);
+
+.market-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
+.chart-box {
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  padding: 14px;
+}
 
-/* ---------- INSIGHT PANEL ---------- */
+canvas {
+  width: 100% !important;
+  height: 220px !important;
+}
+
+/* ---------- AI INSIGHT PANEL ---------- */
+
 #ai-insight {
-  max-width: 760px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: rgba(0, 255, 255, 0.05);
-  border-radius: 1rem;
-  border: 1px solid rgba(0, 255, 255, 0.25);
-  backdrop-filter: blur(6px);
+  margin-top: 20px;
+  padding: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(0,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+  border-radius: 14px;
 }
 
 #ai-insight h3 {
-  font-family: 'Rajdhani', sans-serif;
-  color: #00f0ff;
-  margin-bottom: 0.75rem;
+  margin-bottom: 8px;
 }
 
-#ai-insight .insight-text {
-  font-size: 1rem;
-  margin-bottom: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
+.insight-text {
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
-#ai-insight .context {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+.context {
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
-
-
-/* ---------- REGIME TAG ---------- */
-.regime-tag {
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  padding: 6px 14px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #00f0ff;
