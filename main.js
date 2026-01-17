@@ -32,10 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
     AppState.activeSector = sectorKey;
     updateUI(sector);
     updateInsight(sector);
-    updateCharts(sector); // ✅ correct function
+
+    if (typeof updateCharts === "function") {
+      updateCharts(sector);
+    }
   }
 
   function updateUI(sector) {
+    if (!sector.metrics) return;
+
     metricDominance.textContent = sector.metrics.dominance + "%";
     metricVolatility.textContent = sector.metrics.volatility;
     metricMomentum.textContent = sector.metrics.momentum;
@@ -50,12 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateInsight(sector) {
     if (!AppState.insightsEnabled || !insightPanel) return;
-
-    const insightText = generateSectorInsight(sector);
+    if (typeof generateSectorInsight !== "function") return;
 
     insightPanel.innerHTML = `
       <h3>${sector.name} Sector Insight</h3>
-      <p class="insight-text">${insightText}</p>
+      <p class="insight-text">${generateSectorInsight(sector)}</p>
       <p class="context">
         <strong>Real-world:</strong> ${sector.realWorldSignal}
       </p>
@@ -77,6 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initialSector = AppState.sectors[AppState.activeSector];
 
-  initCharts(initialSector); // ✅ initialize charts ONCE
+  if (typeof initCharts === "function") {
+    initCharts(initialSector);
+  }
+
   setActiveSector(AppState.activeSector);
 });
