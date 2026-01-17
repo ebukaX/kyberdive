@@ -1,25 +1,56 @@
 /* =====================================================
-   KYBERDIVE — CHART ENGINE (MVP)
+   KYBERDIVE – CHART ENGINE (MVP)
    File: charts.js
-   ===================================================== */
+===================================================== */
 
 let dominanceChart;
 let momentumChart;
 
-/* ---------- CHART CONFIG HELPERS ---------- */
+/* ---------- INIT CHARTS ---------- */
 
-function baseChartConfig(label, data) {
-  return {
-    type: "line",
+function initCharts(initialSector) {
+  const dominanceCtx = document
+    .getElementById("dominanceChart")
+    .getContext("2d");
+
+  const momentumCtx = document
+    .getElementById("momentumChart")
+    .getContext("2d");
+
+  dominanceChart = new Chart(dominanceCtx, {
+    type: "doughnut",
     data: {
-      labels: ["T-6", "T-5", "T-4", "T-3", "T-2", "T-1", "Now"],
+      labels: ["Sector Share", "Rest of Market"],
       datasets: [
         {
-          label,
-          data,
+          data: [
+            initialSector.metrics.dominance,
+            100 - initialSector.metrics.dominance
+          ],
+          backgroundColor: ["#4fd1c5", "#1f2933"],
+          borderWidth: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      cutout: "70%",
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  momentumChart = new Chart(momentumCtx, {
+    type: "line",
+    data: {
+      labels: ["T-4", "T-3", "T-2", "T-1", "Now"],
+      datasets: [
+        {
+          data: initialSector.momentumTrend,
+          borderColor: "#4fd1c5",
           tension: 0.4,
-          borderWidth: 2,
-          pointRadius: 0
+          fill: false
         }
       ]
     },
@@ -33,37 +64,20 @@ function baseChartConfig(label, data) {
         y: { display: false }
       }
     }
-  };
+  });
 }
 
-/* ---------- INIT ---------- */
-
-function initCharts(sector) {
-  const domCtx = document
-    .getElementById("dominanceChart")
-    .getContext("2d");
-
-  const momCtx = document
-    .getElementById("momentumChart")
-    .getContext("2d");
-
-  dominanceChart = new Chart(
-    domCtx,
-    baseChartConfig("Dominance", sector.trend)
-  );
-
-  momentumChart = new Chart(
-    momCtx,
-    baseChartConfig("Momentum", sector.trend)
-  );
-}
-
-/* ---------- UPDATE ---------- */
+/* ---------- UPDATE CHARTS ---------- */
 
 function updateCharts(sector) {
-  dominanceChart.data.datasets[0].data = sector.trend;
-  momentumChart.data.datasets[0].data = sector.trend;
+  if (!dominanceChart || !momentumChart) return;
 
+  dominanceChart.data.datasets[0].data = [
+    sector.metrics.dominance,
+    100 - sector.metrics.dominance
+  ];
   dominanceChart.update();
+
+  momentumChart.data.datasets[0].data = sector.momentumTrend;
   momentumChart.update();
 }
